@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block head %}
+<style xmlns="http://www.w3.org/1999/html">
+    .box {
+  background-color: #d3d3d38c;
+  width: 700px;
+  padding: 25px;
+  margin: 20px;
+  font-family: system-ui;
+}
+.box1 {
+  background-color: #d3d3d38c;
+  width: 200px;
+  padding: 25px;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-family: system-ui;
+  text-align:center;
+}
+.box3 {
+    background-color: #3a8bcd;
+    width: 300px;
+	padding: 10px;
+    margin-top: 3px;
+    color: white;
+}
+label {
+margin-top:20px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% for i in messages %}
+<div align="center" style="margin-top:11px;"><p class="text-danger">{{i}}</p></div>
+{% endfor %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="box1">
+            <h6>{{usr.first_name}}&nbsp;{{usr.last_name}}</h6>
+            <p>{{usrmdl.phone}}</p>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="#"><h6>Orders</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="{% url 'personal' %}"><h6>My Profile</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="{% url 'address' %}"><h6>Address</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="{% url 'logout' %}"><h6>Logout</h6></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="box">
+            <h5>My Orders</h5>
+            <div class="row bg-dark">
+                {% if ord %}
+                {% for i in ord %}
+                <div class="col-sm-12">
+                    <a class="bg-dark" href="{% url 'order_summary' i.id %}">
+                        <b>Order id&nbsp;{{i}}</b>
+                        <p class="text-success">{{i.date}}</p>
+                    </a>
+                </div>
+                <hr>
+                {% endfor %}
+                {% else %}
+                <div class="col-sm-12">
+                    <p><b>You have placed no orders<b></b></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" crossorigin="anonymous"></script>
+<script src="" crossorigin="anonymous"></script>
+<style>
+    .box
+    {
+    background-color: #3a8bcd;
+    width: 300px;
+	padding: 10px;
+    margin-top: 3px;
+    color: white;
+    }
+</style>
+{% endblock %}
+{% block content %}
+{% if ct %}
+
+{% for i in messages %}
+<div align="center" style="margin-top:11px;"><p class="text-danger">{{i}}</p></div>
+{% endfor %}
+
+<section class="pt-5 pb-5">
+  <div class="container mt-5">
+    <div class="row w-100">
+        <div class="col-lg-12 col-md-12 col-12">
+            <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
+            <p class="mb-5 text-center">
+                <i class="text-info font-weight-bold">{{cn}}</i> items in your cart</p>
+            <table id="shoppingCart" class="table table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th style="width:60%">Product</th>
+                        <th style="width:12%">Price</th>
+                        <th style="width:10%">Quantity</th>
+                        <th style="width:16%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in ct %}
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row">
+                                <div class="col-md-3 text-left">
+                                    <img src="{{i.s_product.img.url}}" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                </div>
+                                <div class="col-md-9 text-left mt-sm-2">
+                                    <h6 style="font-family: fantasy">{{i.s_product.name}}</h6>
+                                    <p class="font-weight-light">Brand &amp; Name</p>
+                                    <p>Rs&nbsp;{{i.s_product.price}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">Rs&nbsp;{{i.total}}</td>
+                        <form action="{% url 'update_cart' i.id %}" method="get">
+                        <td data-th="Quantity">
+                            <input type="number" class="form-control form-control-lg text-center" name="item-quan{{i.id}}" value="{{i.quantity}}">
+                        </td>
+                        <td class="actions" data-th="">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-white border-secondary bg-white btn-md mb-2 text-success">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                                <a href="{% url 'delete_cart' i.id %}" class="btn btn-white border-secondary bg-white btn-md mb-2 text-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+            <div class="float-right text-right">
+                <h4>Subtotal:</h4>
+                <h1>Rs&nbsp;{{tot}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 d-flex align-items-center">
+        <div class="col-sm-6 order-md-2 text-right">
+            <a href="{% url 'place_order' %}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5 ">Place order</a>
+        </div>
+        <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+            <a href="/">
+                <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
+        </div>
+    </div>
+</div>
+</section>
+{% else %}
+    <center><div class="box">No items added yet</div></center>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% for i in messages %}
+<div align="center" style="margin-top:11px;"><p class="text-danger">{{i}}</p></div>
+{% endfor %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Sign In </h2>
+
+    <!-- Icon -->
+
+
+    <!-- Login Form -->
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <input type="text" id="login" class="fadeIn second" name="uname" placeholder="Username" required>
+      <input type="text" id="password" class="fadeIn third" name="pswd" placeholder="Password" style="-webkit-text-security: square;" autocomplete="off" required>
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="{% url 'register' %}">New user? Register</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

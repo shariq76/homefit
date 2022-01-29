@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+{% block content %}
+
+{% for i in messages %}
+<div align="center" style="margin-top:11px;"><p class="text-danger">{{i}}</p></div>
+{% endfor %}
+
+<div class="wrapper fadeInDown" style="margin-top:3rem;">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active">Sign Up </h2>
+
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <label style="margin-top:1.5rem;margin-bottom:-1rem; font-family:'Roboto'; font-size:x-large;">Your Personal Details</label><hr>
+      <input type="text" id="fname" class="fadeIn second" name="fname" placeholder="First name" required>
+      <input type="text" id="lname" class="fadeIn second" name="lname" placeholder="Last name" required>
+      <input type="text" id="email" class="fadeIn third" name="email" placeholder="Email" pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*" required>
+      <input type="text" id="phone" class="fadeIn third" name="phone" placeholder="Phone">
+      <input type="text" id="uname" class="fadeIn second" name="uname" placeholder="Username" required>
+      <input type="text" id="pswd1" class="fadeIn third" name="pswd1" placeholder="Password" style="-webkit-text-security: square;" autocomplete="off" required>
+      <input type="text" id="pswd2" class="fadeIn third" name="pswd2" placeholder="Re-type password" style="-webkit-text-security: square;" autocomplete="off" required>
+
+      <br><label style="margin-top:1.5rem;margin-bottom:-1rem; font-family:'Roboto'; font-size:x-large;">Your Address</label><hr>
+      <input type="text" id="address" class="fadeIn third" name="address" placeholder="Address" required>
+      <input type="text" id="city" class="fadeIn third" name="city" placeholder="City" required>
+      <input type="text" id="state" class="fadeIn third" name="state" placeholder="State" value="Kerala" readonly>
+      <input type="text" id="country" class="fadeIn third" name="country" placeholder="Country" value="India" readonly>
+
+      <input type="submit" class="fadeIn fourth" value="Register">
+    </form>
+    <!-- Remind Password -->
+    <div id="formFooter">
+      <a class="underlineHover" href="{% url 'login' %}">Already a user? Sign in</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

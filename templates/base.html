@@ -1,0 +1,207 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Fitness Gym</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tooplate-main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flex-slider.css' %}">
+    {% block head %}
+    {% endblock %}
+    <style>
+      .dropbtn {
+        background-color: #3a8bcd;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {background-color: #ddd;}
+
+      .dropdown:hover .dropdown-content {display: block;}
+
+      .dropdown:hover .dropbtn {background-color: #0069d9;}
+    </style>
+
+
+
+  <script src="https://kit.fontawesome.com/0820caaa1c.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+
+    <!-- Pre Header -->
+    <div id="pre-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+
+            <span style="margin-left:45rem;">
+              {% if user.is_authenticated %}
+              <a href="{% url 'cart' %}" style="padding-right: 27px; color:white;"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Cart</a>
+
+              <div class="dropdown">
+                <a style="color:white; padding-right:20px;" class="dropbtn"> <i class="fas fa-user"></i>&nbsp;&nbsp;My account</a>
+                <div class="dropdown-content">
+                  <a href="{% url 'personal' %}">Personal info</a>
+                  <a href="{% url 'orders' %}">Orders</a>
+                  <hr>
+                  <a href="{% url 'logout' %}">Logout</a>
+                </div>
+              </div>
+
+              <a>Hello, {{user.username}}</a>
+              {% else %}
+              <a href="{% url 'login' %}" style="color:white;"><i class="fas fa-user"></i>&nbsp;&nbsp;Login / Register</a>
+              {% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src="{% static 'images/fitgym1.jpg' %}" alt="" align="left"></a>
+        <div class="input-group" style="margin-right:20rem;">
+          <form action="{% url 'search' %}" method="get" class="mb-5">
+          <div class="form-outline">
+            <input id="search-input" type="search" class="form-control" name="s_query" placeholder="Search"/>
+          </div>
+          <button id="search-button" type="button" class="btn btn-primary" style="float:right;">
+            <i class="fas fa-search"></i>
+          </button>
+          </form>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'products' %}">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <!-- Footer Starts Here -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="logo">
+              <img src="{% static 'images/fitgym.jpg' %}" alt="">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">How It Works ?</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="social-icons">
+              <ul>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="#"><i class="fa fa-rss"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Ends Here -->
+
+
+    <!-- Sub Footer Starts Here -->
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright-text">
+              <p>Copyright &copy; 2020 Fitness Gym</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sub Footer Ends Here -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+    <!-- Additional Scripts -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/owl.js' %}"></script>
+    <script src="{% static 'js/isotope.js' %}"></script>
+    <script src="{% static 'js/flex-slider.js' %}"></script>
+
+    <script language = "text/Javascript">
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+
+  </body>
+
+</html>

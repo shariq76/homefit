@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+    .box {
+  background-color: #d3d3d38c;
+  width: 700px;
+  padding: 25px;
+  margin: 20px;
+  font-family: system-ui;
+}
+.box1 {
+  background-color: #d3d3d38c;
+  width: 200px;
+  padding: 25px;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-family: system-ui;
+  text-align:center;
+}
+label {
+margin-top:20px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% for i in messages %}
+<div align="center" style="margin-top:11px;"><p class="text-danger">{{i}}</p></div>
+{% endfor %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="box1">
+            <h6>{{usr.first_name}}&nbsp;{{usr.last_name}}</h6>
+            <p>{{usrmdl.phone}}</p>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="#"><h6>Orders</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="{% url 'personal' %}"><h6>My Profile</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="#"><h6>Address</h6></a>
+                </div>
+                <hr>
+                <div class="col-sm-12">
+                    <a href="{% url 'logout' %}"><h6>Logout</h6></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="box">
+            <h5>Address</h5>
+            <form method="post" action="{% url 'address_update' %}">
+            <div class="row">
+                {% csrf_token %}
+                <div class="col-sm-6">
+                    <label>Address</label>
+                    <input type="text" name="addr" class="form-control" value="{{usrmdl.address}}">
+                </div>
+                <div class="col-sm-6">
+                    <label>City</label>
+                    <input type="text" name="city" class="form-control" value="{{usrmdl.city}}">
+                </div>
+                <div class="col-sm-6">
+                    <label>State</label>
+                    <input type="text" name="state" class="form-control" value="Kerala" readonly>
+                </div>
+                <div class="col-sm-6">
+                    <label>Country</label>
+                    <input type="text" name="ctry" class="form-control" value="India" readonly>
+                </div>
+
+                <div class="col-sm-12" style="padding:16px">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
